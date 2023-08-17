@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+       
+        h1{
+            font-style: italic;
+            text-decoration: underline;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            background-image: url("pic.jpeg"); 
+        background-size: cover;
+        background-repeat: no-repeat;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px 60px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+        label {
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Registration Form</h1>
+        <form id="registrationForm">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <span class="error" id="usernameError"></span>
+            <br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <span class="error" id="emailError"></span>
+            <br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <span class="error" id="passwordError"></span>
+            <br>
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" required>
+            <span class="error" id="confirmPasswordError"></span>
+            <br>
+            <label for="birthdate">Birthdate:</label>
+            <input type="date" id="birthdate" name="birthdate" required>
+            <span class="error" id="birthdateError"></span>
+            <br>
+            <br>
+            <label for="country">Country:</label>
+            <select id="country" name="country">
+                <option value="us">United States</option>
+                <option value="ca">Canada</option>
+                <option value="uk">United Kingdom</option>
+                <option value="au">Australia</option>
+                <option value="other">Other</option>
+            </select>
+            
+            <span class="error" id="countryError"></span>
+            <br>
+            <br>
+            <br>
+            <input type="submit" value="Register">
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById("registrationForm");
+    
+        form.addEventListener("submit", function(event) {
+            let valid = true;
+    
+            const username = form.username.value;
+            const email = form.email.value;
+            const password = form.password.value;
+            const confirmPassword = form.confirmPassword.value;
+            const birthdate = form.birthdate.value;
+            const country = form.country.value;
+    
+            const usernameError = document.getElementById("usernameError");
+            const emailError = document.getElementById("emailError");
+            const passwordError = document.getElementById("passwordError");
+            const confirmPasswordError = document.getElementById("confirmPasswordError");
+            const birthdateError = document.getElementById("birthdateError");
+            const countryError = document.getElementById("countryError");
+    
+            usernameError.textContent = "";
+            emailError.textContent = "";
+            passwordError.textContent = "";
+            confirmPasswordError.textContent = "";
+            birthdateError.textContent = "";
+            countryError.textContent = "";
+    
+            if (username.length < 3) {
+                usernameError.textContent = "Username must be at least 3 characters long.";
+                valid = false;
+            }
+    
+            if (!isValidEmail(email)) {
+                emailError.textContent = "Please enter a valid email address.";
+                valid = false;
+            }
+    
+            if (password.length < 6) {
+                passwordError.textContent = "Password must be at least 6 characters long.";
+                valid = false;
+            }
+    
+            if (password !== confirmPassword) {
+                confirmPasswordError.textContent = "Passwords do not match.";
+                valid = false;
+            }
+    
+            if (!birthdate) {
+                birthdateError.textContent = "Please select a valid birthdate.";
+                valid = false;
+            }
+    
+            if (country === "other") {
+                countryError.textContent = "Please select a valid country.";
+                valid = false;
+            }
+    
+            if (!valid) {
+                event.preventDefault();
+            }
+        });
+        function isValidEmail(email) {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailPattern.test(email);
+        }
+    </script>
+    
+    
+</body>
+</html>
